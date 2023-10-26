@@ -44,6 +44,7 @@ class DayCounter extends Component{
     }
     render() {
         const { targetDate, selectedDates, remainingDays, futureDate, numberOfDays } = this.state
+        const today = new Date()
         return (
             <div className="day-counter">
                 <div className="bg-gray-100 p-6 rounded-lg shadow-lg text-center">
@@ -58,17 +59,17 @@ class DayCounter extends Component{
                     </div>
                     <div>
                         {selectedDates.map((date, index) => (
-                            <p key={index} className="text-lg text-gray-700 mt-4 break-words mr-16 sm:mr-24">
-                                <li className="list-none my-4 px-6 py-8 bg-gray-100 rounded-md shadow-md overflow-hidden relative">
-                                    {date}: <span className="text-red-500">{remainingDays[index]} days remaining</span>
+                            <p key={index} className="text-lg text-gray-700 mt-4 break-words">
+                                <li className="list-none my-4 p-2 bg-gray-100 rounded-md shadow-md overflow-hidden relative">
+                                    {date}: <span className="text-red-500">{remainingDays[index] > 0 ? remainingDays[index] + " days remaining!" : Math.abs(remainingDays[index]) + " days gone!"} </span>
                                 </li>
                             </p>
                         ))}
                     </div>
                     {futureDate && (
-                        <p className="text-lg text-green-600 mt-4 break-words mr-16 sm:mr-24">
-                            <li className="list-none my-4 px-6 py-8 bg-gray-100 rounded-md shadow-md overflow-hidden relative">
-                                Future Date: {futureDate.toDateString()}
+                        <p className="text-lg text-green-600 mt-4 break-words">
+                            <li className="list-none my-4 p-2 bg-gray-100 rounded-md shadow-md overflow-hidden relative">
+                                {today < futureDate ? "Future Date " : today == futureDate ? "Today " : "Past Date "} {futureDate.toDateString()}
                             </li>
                         </p>
                     )}
